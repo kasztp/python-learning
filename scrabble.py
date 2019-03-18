@@ -1,15 +1,20 @@
 # Check if a specific word is in the SCOWL-wl en_US word list
 import random
 import itertools
+import timeit
 
 filename = 'words.txt'
 db = open(filename, encoding='utf-8')
 words = db.read().splitlines()
+db.close()
 
 
 def find_word(word):
     if word in words:
-        print('{} found in word database!'.format(word))
+        return word
+    else:
+        return ()
+    #    print('{} found in word database!'.format(word))
     # else:
     #     print('{} NOT found in word database!'.format(word))
 
@@ -51,7 +56,25 @@ def word_gen(owntiles, l):
         print('ERROR: Word length parameter less than 1!')
 
 
-keyword = 'apple'
+# intersection test
+def find_inter(ws, wc):
+    results = set(ws).intersection(wc)
+    print(results)
+    print(len(results))
+    return results
+
+
+# find test
+def find_in(wc):
+    results = []
+    for keyword in wc:
+        if find_word(keyword) != ():
+            results += [''.join(find_word(keyword))]
+    print(results)
+    print(len(results))
+    return results
+
+
 language = 'EN'
 
 tiles = build_tileset('EN')
@@ -59,6 +82,16 @@ tiles = build_tileset('EN')
 # tile_draw = draw(tiles, 7)
 tile_draw = ['a', 'p', 'p', 'l', 'e', 'y', 's']
 word_candidates = word_gen(tile_draw, 5)
-for keyword in word_candidates:
-    find_word(keyword)
-db.close()
+
+# intersection test
+start_time = timeit.default_timer()
+find_inter(words, word_candidates)
+print(timeit.default_timer() - start_time)
+
+# in test
+start_time = timeit.default_timer()
+find_in(word_candidates)
+print(timeit.default_timer() - start_time)
+
+
+
