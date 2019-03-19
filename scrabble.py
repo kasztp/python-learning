@@ -79,8 +79,8 @@ language = 'EN'
 
 tiles = build_tileset('EN')
 # print(tiles)
-# tile_draw = draw(tiles, 7)
-tile_draw = ['a', 'p', 'p', 'l', 'e', 'y', 's']
+tile_draw = draw(tiles, 7)
+# tile_draw = ['a', 'p', 'p', 'l', 'e', 'y', 's']
 word_candidates = word_gen(tile_draw, 5)
 
 # intersection test
