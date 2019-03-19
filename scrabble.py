@@ -46,7 +46,7 @@ def draw(tileset, n):
 # Generate possible words (tile permutations)
 def word_gen(owntiles, l):
     if l >= 1:
-        permutations = list(itertools.permutations(owntiles, r=l))
+        permutations = set(itertools.permutations(owntiles, r=l))
         textperm = []
         for element in permutations:
             textperm += [''.join(element)]
